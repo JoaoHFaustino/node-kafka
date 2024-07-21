@@ -2,7 +2,7 @@ import { EPaymentMethod, EOrderStatus } from "@/domain/enums";
 
 export namespace AddOrderProtocol {
     export type Params = IAddOrderParams;
-    export type Result = void;
+    export type Result = IAddOrderResult;
 }
 
 interface IAddOrderParams {
@@ -14,8 +14,13 @@ interface IAddOrderParams {
     }>
     totalAmount: number
     paymentMethod: EPaymentMethod
-    transactionId: string
     status: EOrderStatus
+}
+
+interface IAddOrderResult {
+    success: boolean
+    message: string
+    transactionId?: string
 }
 
 export interface AddOrderProtocol {
