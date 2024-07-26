@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
 import { AddOrder } from '@/data/usecases/orders/addOrder';
 import { orderSchema } from '@/validators/order/addOrderValidation';
+import { GetOrders } from '@/data/usecases/orders/getOrders';
 
 const addOrder = new AddOrder();
+const getOrders = new GetOrders();
 
 export class OrderController {
   async createOrder(req: Request, res: Response): Promise<Response> {
@@ -31,4 +33,17 @@ export class OrderController {
       });
     }
   }
+
+  async getOrders(req: Request, res: Response): Promise<Response> {
+    try {
+        const response = await getOrders.getOrders();
+      
+        return res.status(200).json(response);
+    } catch (error: any) {
+        return res.status(500).json({
+            message: 'Internal server error',
+            error: error.message,
+        });
+    }
+}
 }
