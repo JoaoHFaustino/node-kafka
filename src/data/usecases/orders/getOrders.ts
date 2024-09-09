@@ -1,19 +1,19 @@
-import { GetOrdersProtocol, IGetOrdersProtocol } from "@/domain/protocols";
+import { IGetOrders } from "@/domain/protocols";
 import KafkaConsumer from "@/infra/kafka/kafkaConsumer";
 
 
-export class GetOrders implements GetOrdersProtocol {
+export class GetOrders implements IGetOrders {
     private kafkaConsumer: KafkaConsumer;
 
     constructor() {
         this.kafkaConsumer = new KafkaConsumer("my-group-id");
     }
 
-    async getOrders(): Promise<IGetOrdersProtocol.Result> {
+    async getOrders(): Promise<IGetOrders.Result> {
         await this.kafkaConsumer.connect();
         await this.kafkaConsumer.subscribe('orders');
 
-        const orders: IGetOrdersProtocol.Result['orders'] = [];
+        const orders: IGetOrders.Result['orders'] = [];
 
         await this.kafkaConsumer.run(async ({ message }) => {
             if (message.value) {

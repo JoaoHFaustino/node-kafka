@@ -1,13 +1,8 @@
 import { EPaymentMethod, EOrderStatus } from "@/domain/enums";
 
-export namespace IGetOrdersProtocol {
+export namespace IGetOrders {
     export type Result = IGetOrdersResult;
 }
-
-interface IGetOrdersResult {
-    orders: Array<Order>
-}
-
 interface Order {
     orderId: string;
     customerId: string;
@@ -20,7 +15,12 @@ interface Order {
     status: EOrderStatus;
 }
 
+interface IGetOrdersResult {
+    orders: Array<Order>
+}
 
-export interface GetOrdersProtocol {
-    getOrders(): Promise<IGetOrdersProtocol.Result>
+
+
+export interface IGetOrders {
+    getOrders(): Promise<IGetOrders.Result>
 }

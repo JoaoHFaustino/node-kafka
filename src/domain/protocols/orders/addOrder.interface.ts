@@ -1,6 +1,6 @@
 import { EPaymentMethod, EOrderStatus } from "@/domain/enums";
 
-export namespace AddOrderProtocol {
+export namespace IAddOrder {
     export type Params = IAddOrderParams;
     export type Result = IAddOrderResult;
 }
@@ -23,6 +23,6 @@ interface IAddOrderResult {
     transactionId?: string
 }
 
-export interface AddOrderProtocol {
-    addOrder(params: AddOrderProtocol.Params): Promise<AddOrderProtocol.Result>
+export interface IAddOrder {
+    addOrder(params: IAddOrder.Params): Promise<IAddOrder.Result>
 }
